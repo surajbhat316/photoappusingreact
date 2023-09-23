@@ -1,38 +1,96 @@
-.App {
-  text-align: center;
+.categoryBtnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkblue;
+    color: white;
+    width: 200px;
+    height: 200px;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 19px blue;
+    margin: auto;
+    margin-top: 4rem;
+    font-size: 1.25rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 1px solid yellow;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.categoryBtnContainer:hover{
+    box-shadow: 0px 0px 29px blue;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.categoryForm{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 20%;
+    height: auto;
+    top: 2rem;
+    padding: 1rem;
+    background-color: cyan;
+    margin: auto;
+    border-radius: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.categoryForm form{
+    display: flex;
+    flex-direction: column;
 }
 
-.App-link {
-  color: #61dafb;
+.categoryForm form div{
+    margin: 0.5rem;
+}
+.categoryForm input{
+    width: 100%;
+    height: 2rem;
+    font-size: larger;
+    padding: 0.25rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.categoryForm button{
+    position: relative;
+    width: 100%;
+    background-color: lightgrey;
+    color: grey;
+    padding: 0.25rem;
+    border-color: white;
+
+}
+
+.visibilityHidden{
+    visibility: hidden;
+}
+
+#availableCategories{
+    background-color: cyan;
+    width: 80%;
+    margin: auto;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+#availableCategories h2{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.categoriesContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    background-color: yellow;
+    margin: auto;
+    padding: 1rem;
+}
+
+.category{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 1rem;
+    background-color: grey;
+    margin: 1rem;
 }

@@ -1,0 +1,19 @@
+.categoriesContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    background-color: yellow;
+    margin: auto;
+    padding: 1rem;
+}
+
+.category{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 1rem;
+    background-color: grey;
+    margin: 1rem;
+}
