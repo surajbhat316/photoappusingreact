@@ -1,0 +1,21 @@
+#mainContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#mainContainer div{
+
+    margin: 1rem;
+}
+#image{
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    margin: auto;
+}
+
+#image img{
+    width: 100%;
+    height: 100%;
+}

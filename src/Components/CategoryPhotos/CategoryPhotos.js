@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import "./CategoryPhotos.css"
 import { db } from '../../config/firebaseinit';
+import PhotoUpdateComponent from '../PhotoUpdateComponent/PhotoUpdateComponent';
 
 export default function CategoryPhotos(props) {
 
@@ -10,7 +11,7 @@ export default function CategoryPhotos(props) {
   let descriptionReference = useRef();
   const {selectedCategory, setDisplayPhotos} = props;
   const [photos, setPhotos] = useState([]);
-  const [photoUpdate ,setPhotoUpdate] = useState(false);
+  const [photoUpdate ,setPhotoUpdate] = useState({status: false, photo: ""});
 
   useEffect(() =>{
     console.log("Enters");
@@ -28,7 +29,7 @@ export default function CategoryPhotos(props) {
         console.log(photosData);
       }
       getData();
-  }, [selectedCategory])
+  }, [selectedCategory, photoUpdate])
 
   function handleClick(){
     setDisplayPhotos(false);
@@ -67,6 +68,10 @@ export default function CategoryPhotos(props) {
 
   function handleUpdate(photo){
     console.log(photo);
+    setPhotoUpdate({
+        status: true,
+        photo: photo
+    });
   }
 
   async function uploadEncodedPhoto(base64){
@@ -83,7 +88,7 @@ export default function CategoryPhotos(props) {
   }
   return (
     <div>
-        {photoUpdate=== false ?
+        {photoUpdate.status=== false ?
         <div>
             <div className='header'>
                 <button onClick={handleClick}>Back</button>
@@ -122,7 +127,9 @@ export default function CategoryPhotos(props) {
                 })}
             </div>
         </div>:
-        <p>Hello</p>}
+        <div>
+            <PhotoUpdateComponent photoUpdate={photoUpdate} setPhotoUpdate={setPhotoUpdate} />
+        </div>}
     </div>
   )
 }
