@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import "./CategoryPhotos.css"
 import { db } from '../../config/firebaseinit';
 
@@ -10,6 +10,7 @@ export default function CategoryPhotos(props) {
   let descriptionReference = useRef();
   const {selectedCategory, setDisplayPhotos} = props;
   const [photos, setPhotos] = useState([]);
+  const [photoUpdate ,setPhotoUpdate] = useState(false);
 
   useEffect(() =>{
     console.log("Enters");
@@ -57,6 +58,17 @@ export default function CategoryPhotos(props) {
     reader.readAsDataURL(file);
   }
 
+
+  async function handleDelete(id){
+    let remainingPhotos = photos.filter((photo) => photo.id !== id);
+    await deleteDoc(doc(db, "photos", id));
+    setPhotos(remainingPhotos);
+  }
+
+  function handleUpdate(photo){
+    console.log(photo);
+  }
+
   async function uploadEncodedPhoto(base64){
     console.log(base64);
     const photosObject = {
@@ -71,38 +83,46 @@ export default function CategoryPhotos(props) {
   }
   return (
     <div>
-        <div className='header'>
-            <button onClick={handleClick}>Back</button>
-            <div className="uploadBtnContainer" onClick={handleUploadBtnClick}>
-                <div>
-                    Upload a Photo
-                </div>
-            </div>
-            <form id='photoUploadForm' onSubmit={handleFormSubmit} className='visibilityHidden'>
-                <div>
-                    <input ref={descriptionReference} type='text' placeholder='Enter Description' required / >
-                </div>
-                <div>
-                    <input type='file' ref={fileReference}/>
-                </div>
-                <div>
-                    <button type='submit'>Upload</button>
-                </div>
-            </form>
-        </div>
-
-        <h2 style={{textAlign: "center", fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}}>Photos for category {selectedCategory} </h2>
-
-        <div id='photos'>
-            {photos.map((photo) => {
-                return (
-                    <div className='photo' id={photo.id}>
-                        <img src={photo.encoding}  alt={photo.description}/>
-                        <p>{photo.description}</p>
+        {photoUpdate=== false ?
+        <div>
+            <div className='header'>
+                <button onClick={handleClick}>Back</button>
+                <div className="uploadBtnContainer" onClick={handleUploadBtnClick}>
+                    <div>
+                        Upload a Photo
                     </div>
-                )
-            })}
-        </div>
+                </div>
+                <form id='photoUploadForm' onSubmit={handleFormSubmit} className='visibilityHidden'>
+                    <div>
+                        <input ref={descriptionReference} type='text' placeholder='Enter Description' required / >
+                    </div>
+                    <div>
+                        <input type='file' ref={fileReference}/>
+                    </div>
+                    <div>
+                        <button type='submit'>Upload</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2 style={{textAlign: "center", fontFamily: "Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"}}>Photos for category {selectedCategory} </h2>
+
+            <div id='photos'>
+                {photos.map((photo) => {
+                    return (
+                        <div className='photo' id={photo.id}>
+                            <div className='deleteBtn displayNone'>
+                                <button onClick={() => handleDelete(photo.id)}>Delete</button>
+                                <button onClick={() => handleUpdate(photo)}>Edit</button>
+                            </div>
+                            <img src={photo.encoding}  alt={photo.description}/>
+                            <p>{photo.description}</p>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>:
+        <p>Hello</p>}
     </div>
   )
 }
