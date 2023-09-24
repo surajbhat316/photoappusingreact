@@ -15,5 +15,8 @@
     height: 200px;
     border-radius: 1rem;
     background-color: grey;
+    color: white;
+    font-size: 1.5rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 1rem;
 }

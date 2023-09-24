@@ -3,10 +3,14 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 
 import "./App.css";
 import { useEffect, useRef, useState } from "react";
-import CategoriesComponent from "./Components/CategoriesComponent";
+import CategoriesComponent from "./Components/CategoriesComponent/CategoriesComponent";
+import CategoryPhotos from "./Components/CategoryPhotos/CategoryPhotos";
+
 function App() {
   let categoryInput = useRef("");
   const [categories, setCategories] = useState([]);
+  const [displayPhotos, setDisplayPhotos] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(()=>{
     
@@ -45,29 +49,42 @@ function App() {
     categoryInput.current.value = "";
     console.log("Document written with ID: ", docRef.id);
   }
+
+
+  function getCategoryName(name){
+    console.log(name);
+    setDisplayPhotos(true);
+    setSelectedCategory(name);
+  }
+
   return (
     <>
-      <div onClick={handleClick} className="categoryBtnContainer">
-        <div>
-          Create Category
+      {displayPhotos === false? <div>
+        <div onClick={handleClick} className="categoryBtnContainer">
+          <div>
+            Create Category
+          </div>
         </div>
-      </div>
 
-      <div className="categoryForm visibilityHidden">
-          <form onSubmit={handleFormSubmit}>
-            <div>
-              <input ref={categoryInput} type="text"  placeholder="Enter category name" required/>
-            </div>
-            <div>
-              <button type="submit">Add Category</button>
-            </div>
-          </form>
-      </div>
+        <div className="categoryForm visibilityHidden">
+            <form onSubmit={handleFormSubmit}>
+              <div>
+                <input ref={categoryInput} type="text"  placeholder="Enter category name" required/>
+              </div>
+              <div>
+                <button type="submit">Add Category</button>
+              </div>
+            </form>
+        </div>
 
-      <div id="availableCategories">
-          <h2>Available Categories</h2>
-          <CategoriesComponent categories={categories} />
-      </div>
+        <div id="availableCategories">
+            <h2>Available Categories</h2>
+            <CategoriesComponent categories={categories} getCategoryName={getCategoryName} />
+        </div>
+      </div> :
+      <CategoryPhotos setDisplayPhotos={setDisplayPhotos}  selectedCategory={selectedCategory}/>
+      }
+      
     </>
   );
 }

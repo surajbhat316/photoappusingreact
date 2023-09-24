@@ -1,0 +1,80 @@
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.header button{
+    background-color: lightcoral;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+
+.uploadBtnContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkblue;
+    color: white;
+    width: 200px;
+    height: 200px;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 19px blue;
+    margin: auto;
+    margin-top: 4rem;
+    font-size: 1.25rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: 1px solid yellow;
+}
+
+.uploadBtnContainer:hover{
+    box-shadow: 0px 0px 29px blue;
+}
+
+.header form{
+    display: flex;
+    flex-direction: column;
+    background-color: yellow;
+    padding: 1rem;
+    margin-top: 1rem;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 29px blue;
+    border-radius: 1rem;
+}
+
+.header form div{
+    margin: 1rem;
+}
+
+#photos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 4rem;
+}
+
+#photos div{
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+}
+
+#photos div img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+#photos div p{
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bolder;
+}
