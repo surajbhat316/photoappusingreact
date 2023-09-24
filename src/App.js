@@ -11,6 +11,8 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [displayPhotos, setDisplayPhotos] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [categoryCreatedMessage, setCategoryCreaatedMessage] = useState("");
+  const [imageAddedToAlbumMessage ,setImageAddedToAlbumMessage] = useState("");
 
   useEffect(()=>{
     
@@ -48,6 +50,7 @@ function App() {
     const docRef = await addDoc(collection(db, "category"), categoryObject);
     categoryInput.current.value = "";
     console.log("Document written with ID: ", docRef.id);
+    setCategoryCreaatedMessage("A new category was created! Refresh the screen to view");
   }
 
 
@@ -59,6 +62,8 @@ function App() {
 
   return (
     <>
+      {imageAddedToAlbumMessage?<p style={{textAlign: "center", fontSize:"larger", fontWeight: "bolder"}}>{imageAddedToAlbumMessage}</p>:<p></p>}
+      {categoryCreatedMessage?<p style={{textAlign: "center", fontSize:"larger", fontWeight: "bolder"}}>{categoryCreatedMessage}</p>:<p></p>}
       {displayPhotos === false? <div>
         <div onClick={handleClick} className="categoryBtnContainer">
           <div>
@@ -76,13 +81,14 @@ function App() {
               </div>
             </form>
         </div>
-
+        {imageAddedToAlbumMessage?<p style={{textAlign: "center", fontSize:"larger", fontWeight: "bolder"}}>{imageAddedToAlbumMessage}</p>:<p></p>}
+      {categoryCreatedMessage?<p style={{textAlign: "center", fontSize:"larger", fontWeight: "bolder"}}>{categoryCreatedMessage}</p>:<p></p>}
         <div id="availableCategories">
             <h2>Available Categories</h2>
             <CategoriesComponent categories={categories} getCategoryName={getCategoryName} />
         </div>
       </div> :
-      <CategoryPhotos setDisplayPhotos={setDisplayPhotos}  selectedCategory={selectedCategory}/>
+      <CategoryPhotos setImageAddedToAlbumMessage={setImageAddedToAlbumMessage} setDisplayPhotos={setDisplayPhotos}  selectedCategory={selectedCategory}/>
       }
       
     </>

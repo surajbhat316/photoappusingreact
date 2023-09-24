@@ -9,9 +9,10 @@ export default function CategoryPhotos(props) {
 
   let fileReference = useRef();
   let descriptionReference = useRef();
-  const {selectedCategory, setDisplayPhotos} = props;
+  const {setImageAddedToAlbumMessage,selectedCategory, setDisplayPhotos} = props;
   const [photos, setPhotos] = useState([]);
   const [photoUpdate ,setPhotoUpdate] = useState({status: false, photo: ""});
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() =>{
     console.log("Enters");
@@ -50,6 +51,13 @@ export default function CategoryPhotos(props) {
     e.preventDefault();
     console.log("Enters Form Upload Component");
     let file = fileReference.current.files[0];
+    console.log("filesize ",file.size);
+
+    if(file.size > 10001){
+        console.log("File size larger");
+        setErrorMessage("File size should be less than 10KB");
+        return;
+    }
     var reader = new FileReader();
     reader.onloadend = function() {
         // console.log('RESULT', reader.result);
@@ -85,6 +93,11 @@ export default function CategoryPhotos(props) {
 
     const docRef = await addDoc(collection(db, "photos"), photosObject);
     console.log("Document written with ID: ", docRef.id);
+
+    // Added start
+    setDisplayPhotos(false);
+    setImageAddedToAlbumMessage("Image added to album "+ selectedCategory);
+    // Added End
   }
   return (
     <div>
@@ -103,6 +116,7 @@ export default function CategoryPhotos(props) {
                     </div>
                     <div>
                         <input type='file' ref={fileReference}/>
+                        {errorMessage?<p>{errorMessage}</p>:<p></p>}
                     </div>
                     <div>
                         <button type='submit'>Upload</button>
